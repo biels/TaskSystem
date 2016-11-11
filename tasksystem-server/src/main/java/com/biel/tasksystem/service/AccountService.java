@@ -15,7 +15,7 @@ import java.text.MessageFormat;
  * Created by Biel on 11/11/2016.
  */
 @RestController
-@RequestMapping("/acc")
+@RequestMapping("/accounts")
 public class AccountService {
     AccountRepository accountRepository;
 
@@ -23,15 +23,16 @@ public class AccountService {
     public AccountService(AccountRepository accountRepository) {
         this.accountRepository = accountRepository;
     }
-    @RequestMapping(name = "", method = RequestMethod.GET)
-    String list(@PathVariable String userId){
+    @RequestMapping(value = "", method = RequestMethod.GET)
+    String list(){
         return MessageFormat.format("{0} accounts registered on the server.", accountRepository.count());
     }
     //Register, login, ...
-    @RequestMapping(name = "/{userId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{userId}", method = RequestMethod.GET)
     Account summary(@PathVariable String userId) throws UserNotFoundException {
         return getAccount(userId);
     }
+
     protected Account getAccount(String userId) throws UserNotFoundException {
         //Authenticate user here
         return accountRepository.findByUsername(userId).orElseThrow(() -> new UserNotFoundException(userId));

@@ -74,4 +74,8 @@ public class Account {
     public void setTasks(Set<Task> tasks) {
         this.tasks = tasks;
     }
+
+    public int getTaskCount(){
+        return tasks.size();
+    }
 }
